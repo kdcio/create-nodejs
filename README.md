@@ -1,1 +1,3 @@
-# Nodejs Boilerplate
+# Create NodeJs
+
+Boilerplate for NodeJs projects

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
 
-var start = require("../index");
-
-start();
+var run = require('../lib');
+run();

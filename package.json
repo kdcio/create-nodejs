@@ -1,21 +1,62 @@
 {
-  "name": "nodejs-boilerplate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "create-nodejs",
+  "version": "0.1.0",
+  "description": "NodeJs boilerplate",
+  "main": "lib/index.js",
   "bin": "./bin/kdc-create-nodejs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:commonjs": "babel src --out-dir lib",
+    "clean": "rm -fR lib",
+    "build": "npm run clean && npm run build:commonjs",
+    "lint": "eslint src --ext .js",
+    "test": "jest",
+    "watch": "jest --watch",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kdcsoftware/nodejs-boilerplate.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Ian Dela Cruz",
+    "email": "ian@kdcsoftware.com",
+    "url": "https://www.kdcsoftware.com"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kdcsoftware/nodejs-boilerplate/issues"
   },
-  "homepage": "https://github.com/kdcsoftware/nodejs-boilerplate#readme"
+  "homepage": "https://github.com/kdcsoftware/nodejs-boilerplate#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.0.1",
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint src --ext .js --fix",
+      "pretty-quick --staged",
+      "git add"
+    ]
+  }
 }
