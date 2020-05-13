@@ -74,7 +74,7 @@ describe('Create NodeJs', () => {
     try {
       await run({ packageName: 'src' });
     } catch (error) {
-      expect(error.message).toEqual('The directory exists.');
+      expect(error.message).toEqual('Error: The directory exists.');
     }
   });
 });

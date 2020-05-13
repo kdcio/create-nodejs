@@ -11,11 +11,11 @@ import { NPM_PACKAGES_DEV, NPM_PACKAGES_PROD } from './packages';
 const PKG_DIR = __dirname;
 
 const run = async ({ packageName }) => {
-  if (fs.existsSync(packageName)) {
-    throw new Error('The directory exists.');
-  }
-
   try {
+    if (fs.existsSync(packageName)) {
+      throw new Error('The directory exists.');
+    }
+
     await fse.mkdirp(packageName);
     process.chdir(packageName);
     const CUR_DIR = process.cwd();
