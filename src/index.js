@@ -29,15 +29,17 @@ const run = async ({ packageName }) => {
       fse.copySync(`${PKG_DIR}/../${c}`, `${CUR_DIR}/${c}`);
     });
 
-    // modify package.json
-    const { stdout: userName } = await execa('git', ['config', 'user.name']);
-    const { stdout: email } = await execa('git', ['config', 'user.email']);
     pkg.mod([
       { field: 'version', value: '0.1.0' },
       { field: 'main', value: 'lib/index.js' },
       { field: 'license', value: 'MIT' },
-      { field: 'author', value: { name: userName, email } },
     ]);
+
+    if (!process.env.CI) {
+      const { stdout: userName } = await execa('git', ['config', 'user.name']);
+      const { stdout: email } = await execa('git', ['config', 'user.email']);
+      pkg.mod([{ field: 'author', value: { name: userName, email } }]);
+    }
 
     // add sample test
   } catch (error) {
