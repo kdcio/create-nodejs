@@ -1,6 +1,10 @@
 module.exports = {
   testEnvironment: 'node',
-  testPathIgnorePatterns: ['/node_modules/', '/tests/__helpers'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/tests/__helpers',
+    '/hello-world/',
+  ],
   collectCoverage: true,
   coverageReporters: ['lcov'],
   collectCoverageFrom: ['src/**/*.js'],
