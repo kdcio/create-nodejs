@@ -22,14 +22,12 @@ const run = async ({ packageName }) => {
     await execa('npm', ['init', '-y']);
     // dev dependencies
     const npmProcDev = execa('npm', ['i', '-D', ...NPM_PACKAGES_DEV]);
-    const { stdout: npmInstallDev } = await npmProcDev;
-    // eslint-disable-next-line no-console
-    console.log('npm install output:', npmInstallDev);
+    npmProcDev.stdout.pipe(process.stdout);
+    await npmProcDev;
     // prod dependencies
     const npmProcProd = execa('npm', ['i', ...NPM_PACKAGES_PROD]);
-    const { stdout: npmInstallProd } = await npmProcProd;
-    // eslint-disable-next-line no-console
-    console.log('npm install output:', npmInstallProd);
+    npmProcProd.stdout.pipe(process.stdout);
+    await npmProcProd;
 
     // copy config
     CONFIG_FILES.forEach((c) => {
