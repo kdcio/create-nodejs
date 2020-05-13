@@ -20,7 +20,7 @@ describe('Create NodeJs', () => {
   it('should run', async () => {
     jest.setTimeout(60000);
     expect.assertions(
-      7 +
+      14 +
         CONFIG_FILES.length +
         NPM_PACKAGES_DEV.length +
         NPM_PACKAGES_PROD.length
@@ -43,6 +43,13 @@ describe('Create NodeJs', () => {
       expect(pkg.version).toBe('0.1.0');
       expect(pkg.main).toBe('lib/index.js');
       expect(pkg.license).toBe('MIT');
+      expect(pkg.scripts).toHaveProperty('build:commonjs');
+      expect(pkg.scripts).toHaveProperty('clean');
+      expect(pkg.scripts).toHaveProperty('build');
+      expect(pkg.scripts).toHaveProperty('lint');
+      expect(pkg.scripts).toHaveProperty('test');
+      expect(pkg.scripts).toHaveProperty('watch');
+      expect(pkg.scripts).toHaveProperty('coverage');
       // Remove from test since CI doesn't have git user
       // expect(pkg.author.name).toBe('Ian Dela Cruz');
       // expect(pkg.author.email).toBe('iandc76@gmail.com');

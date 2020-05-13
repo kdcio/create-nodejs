@@ -44,10 +44,21 @@ const run = async ({ packageName }) => {
       `${CUR_DIR}/tests/index.test.js`
     );
 
+    const scripts = {
+      'build:commonjs': 'babel src --out-dir lib',
+      clean: 'rm -fR lib',
+      build: 'npm run clean && npm run build:commonjs',
+      lint: 'eslint src --ext .js',
+      test: 'jest',
+      watch: 'jest --watchAll --runInBand',
+      coverage: 'jest --coverage',
+    };
+
     pkg.mod([
       { field: 'version', value: '0.1.0' },
       { field: 'main', value: 'lib/index.js' },
       { field: 'license', value: 'MIT' },
+      { field: 'scripts', value: scripts },
     ]);
 
     if (!process.env.CI) {
