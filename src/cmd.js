@@ -1,9 +1,11 @@
 import execa from 'execa';
 
-const cmd = async (c, args) => {
+const cmd = (c, args, showOutput = true) => {
   const proc = execa(c, args);
-  proc.stdout.pipe(process.stdout);
-  await proc;
+  if (showOutput) {
+    proc.stdout.pipe(process.stdout);
+  }
+  return proc;
 };
 
 export default cmd;

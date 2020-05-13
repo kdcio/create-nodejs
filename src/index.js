@@ -1,6 +1,5 @@
 import fs from 'fs';
 import fse from 'fs-extra';
-import execa from 'execa';
 import { resolve } from 'path';
 import cmd from './cmd';
 
@@ -63,8 +62,12 @@ const run = async ({ packageName }) => {
       { field: 'scripts', value: scripts },
     ]);
 
-    const { stdout: userName } = await execa('git', ['config', 'user.name']);
-    const { stdout: email } = await execa('git', ['config', 'user.email']);
+    const { stdout: userName } = await cmd(
+      'git',
+      ['config', 'user.name'],
+      false
+    );
+    const { stdout: email } = await cmd('git', ['config', 'user.email'], false);
     pkg.mod([{ field: 'author', value: { name: userName, email } }]);
 
     // Initialize git
