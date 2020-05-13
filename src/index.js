@@ -63,11 +63,9 @@ const run = async ({ packageName }) => {
       { field: 'scripts', value: scripts },
     ]);
 
-    if (!process.env.CI) {
-      const { stdout: userName } = await execa('git', ['config', 'user.name']);
-      const { stdout: email } = await execa('git', ['config', 'user.email']);
-      pkg.mod([{ field: 'author', value: { name: userName, email } }]);
-    }
+    const { stdout: userName } = await execa('git', ['config', 'user.name']);
+    const { stdout: email } = await execa('git', ['config', 'user.email']);
+    pkg.mod([{ field: 'author', value: { name: userName, email } }]);
 
     // Initialize git
     await cmd('git', ['init']);

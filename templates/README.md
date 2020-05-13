@@ -1,6 +1,6 @@
-# Create NodeJs
+# Your New Project
 
-Boilerplate for NodeJs projects
+Describe your project here
 
 ## Usage
 

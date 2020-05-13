@@ -14,6 +14,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+      - name: Set GIT_USER
+        run: echo '::set-env name=GIT_USER::Ian'
+      - name: Set GIT_EMAIL
+        run: echo '::set-env name=GIT_USER::ian@kdcsoftware.com'
+      - run: git config --global user.email $GIT_USER
+      - run: git config --global user.name $GIT_EMAIL
       - run: npm ci
       - run: npm test
       - run: npm run lint

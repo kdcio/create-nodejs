@@ -20,7 +20,7 @@ describe('Create NodeJs', () => {
   it('should run', async () => {
     jest.setTimeout(60000);
     expect.assertions(
-      15 +
+      17 +
         Object.keys(CONFIG_FILES).length +
         NPM_PACKAGES_DEV.length +
         NPM_PACKAGES_PROD.length
@@ -53,9 +53,8 @@ describe('Create NodeJs', () => {
       expect(pkg.scripts).toHaveProperty('test');
       expect(pkg.scripts).toHaveProperty('watch');
       expect(pkg.scripts).toHaveProperty('coverage');
-      // Remove from test since CI doesn't have git user
-      // expect(pkg.author.name).toBe('Ian Dela Cruz');
-      // expect(pkg.author.email).toBe('iandc76@gmail.com');
+      expect(pkg.author).toHaveProperty('name');
+      expect(pkg.author).toHaveProperty('email');
 
       NPM_PACKAGES_DEV.forEach((c) => {
         expect(pkg.devDependencies).toHaveProperty(c);
