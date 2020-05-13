@@ -4,6 +4,11 @@
   "description": "NodeJs boilerplate",
   "main": "lib/index.js",
   "bin": "./cli.js",
+  "files": [
+    "lib",
+    ".*",
+    "jest.config.js"
+  ],
   "scripts": {
     "build:commonjs": "babel src --out-dir lib",
     "clean": "rm -fR lib",
