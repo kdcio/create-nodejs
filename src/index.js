@@ -4,7 +4,7 @@ import execa from 'execa';
 
 import pkg from './pkg';
 import CONFIG_FILES from './configs';
-import NPM_PACKAGES from './packages';
+import { NPM_PACKAGES_DEV, NPM_PACKAGES_PROD } from './packages';
 
 const PKG_DIR = __dirname;
 
@@ -20,10 +20,16 @@ const run = async ({ packageName }) => {
 
     // npm commands
     await execa('npm', ['init', '-y']);
-    const npmProc = execa('npm', ['i', '-D', ...NPM_PACKAGES]);
-    const { stdout: npmInstall } = await npmProc;
+    // dev dependencies
+    const npmProcDev = execa('npm', ['i', '-D', ...NPM_PACKAGES_DEV]);
+    const { stdout: npmInstallDev } = await npmProcDev;
     // eslint-disable-next-line no-console
-    console.log('npm install output:', npmInstall);
+    console.log('npm install output:', npmInstallDev);
+    // prod dependencies
+    const npmProcProd = execa('npm', ['i', ...NPM_PACKAGES_PROD]);
+    const { stdout: npmInstallProd } = await npmProcProd;
+    // eslint-disable-next-line no-console
+    console.log('npm install output:', npmInstallProd);
 
     // copy config
     CONFIG_FILES.forEach((c) => {

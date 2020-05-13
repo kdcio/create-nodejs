@@ -1,7 +1,7 @@
-const NPM_PACKAGES = [
+export const NPM_PACKAGES_DEV = [
   '@babel/core',
   '@babel/cli',
-  '@babel/runtime',
+  '@babel/plugin-transform-runtime',
   '@babel/preset-env',
   'eslint',
   'prettier',
@@ -15,8 +15,7 @@ const NPM_PACKAGES = [
   'pretty-quick',
   'jest',
   'babel-jest',
-  '@babel/plugin-transform-runtime',
   '@types/jest',
 ];
 
-export default NPM_PACKAGES;
+export const NPM_PACKAGES_PROD = ['@babel/runtime'];

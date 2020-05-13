@@ -2,7 +2,7 @@ import fs from 'fs';
 import fse from 'fs-extra';
 import run from '../src';
 import CONFIG_FILES from '../src/configs';
-import NPM_PACKAGES from '../src/packages';
+import { NPM_PACKAGES_DEV, NPM_PACKAGES_PROD } from '../src/packages';
 
 const PKG_NAME = 'hello-world';
 const ROOT_DIR = process.cwd();
@@ -19,7 +19,12 @@ describe('Create NodeJs', () => {
 
   it('should run', async () => {
     jest.setTimeout(60000);
-    expect.assertions(7 + CONFIG_FILES.length + NPM_PACKAGES.length);
+    expect.assertions(
+      7 +
+        CONFIG_FILES.length +
+        NPM_PACKAGES_DEV.length +
+        NPM_PACKAGES_PROD.length
+    );
     try {
       await run({ packageName: 'hello-world' });
       expect(fs.existsSync(PKG_DIR)).toBe(true);
@@ -42,8 +47,12 @@ describe('Create NodeJs', () => {
       // expect(pkg.author.name).toBe('Ian Dela Cruz');
       // expect(pkg.author.email).toBe('iandc76@gmail.com');
 
-      NPM_PACKAGES.forEach((c) => {
+      NPM_PACKAGES_DEV.forEach((c) => {
         expect(pkg.devDependencies).toHaveProperty(c);
+      });
+
+      NPM_PACKAGES_PROD.forEach((c) => {
+        expect(pkg.dependencies).toHaveProperty(c);
       });
     } catch (error) {
       // console.log(error);
