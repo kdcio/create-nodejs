@@ -27,7 +27,7 @@ if (program.info) {
     `\n  current version of ${packageJson.name}: ${packageJson.version}`
   );
   console.log(`  running from ${__dirname}`);
-  return envinfo
+  envinfo
     .run(
       {
         System: ['OS', 'CPU'],
@@ -41,9 +41,7 @@ if (program.info) {
       }
     )
     .then(console.log);
-}
-
-if (typeof packageName === 'undefined') {
+} else if (typeof packageName === 'undefined') {
   console.error('Please specify the project directory:');
   console.log(
     `  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`
@@ -57,9 +55,7 @@ if (typeof packageName === 'undefined') {
   console.log(
     `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
   );
-  return process.exit(1);
+  process.exit(1);
+} else {
+  run({ packageName });
 }
-
-run({ packageName });
-
-return process.exit(0);
