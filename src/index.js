@@ -36,10 +36,13 @@ const run = async ({ packageName }) => {
     await fse.mkdirp(packageName);
     process.chdir(packageName);
     await execa('npm', ['init', '-y']);
+    const { stdout: userName } = await execa('git', ['config', 'user.name']);
+    const { stdout: email } = await execa('git', ['config', 'user.email']);
     pkg.mod([
       { field: 'version', value: '0.1.0' },
       { field: 'main', value: 'lib/index.js' },
       { field: 'license', value: 'MIT' },
+      { field: 'author', value: { name: userName, email } },
     ]);
 
     // pkg.mod({ field: 'main', value: 'lib/index.js' });

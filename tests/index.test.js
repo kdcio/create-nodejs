@@ -16,7 +16,7 @@ describe('Create NodeJs', () => {
   });
 
   it('should run', async () => {
-    expect.assertions(5);
+    expect.assertions(7);
     try {
       await run({ packageName: 'hello-world' });
       expect(fs.existsSync(PKG_DIR)).toBe(true);
@@ -27,9 +27,11 @@ describe('Create NodeJs', () => {
       expect(pkg.version).toBe('0.1.0');
       expect(pkg.main).toBe('lib/index.js');
       expect(pkg.license).toBe('MIT');
+      expect(pkg.author.name).toBe('Ian Dela Cruz');
+      expect(pkg.author.email).toBe('iandc76@gmail.com');
     } catch (error) {
       // console.log(error);
-      expect(error).toBe(undefined);
+      expect(error).toBe(null);
     }
   });
 
