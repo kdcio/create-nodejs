@@ -14,13 +14,13 @@ describe('Create NodeJs', () => {
   });
 
   afterAll(async () => {
-    // await fse.remove(PKG_DIR);
+    await fse.remove(PKG_DIR);
   });
 
   it('should run', async () => {
     jest.setTimeout(60000);
     expect.assertions(
-      14 +
+      15 +
         Object.keys(CONFIG_FILES).length +
         NPM_PACKAGES_DEV.length +
         NPM_PACKAGES_PROD.length
@@ -30,6 +30,7 @@ describe('Create NodeJs', () => {
       await run({ packageName: 'hello-world' });
       expect(fs.existsSync(PKG_DIR)).toBe(true);
       expect(fs.existsSync(`${PKG_DIR}/package.json`)).toBe(true);
+      expect(fs.existsSync(`${PKG_DIR}/.git`)).toBe(true);
 
       Object.keys(CONFIG_FILES).forEach((k) => {
         const c = CONFIG_FILES[k];

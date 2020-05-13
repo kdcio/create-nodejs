@@ -2,6 +2,7 @@ import fs from 'fs';
 import fse from 'fs-extra';
 import execa from 'execa';
 import { resolve } from 'path';
+import cmd from './cmd';
 
 import pkg from './pkg';
 import CONFIG_FILES from './configs';
@@ -20,15 +21,11 @@ const run = async ({ packageName }) => {
     const CUR_DIR = process.cwd();
 
     // npm commands
-    await execa('npm', ['init', '-y']);
+    await cmd('npm', ['init', '-y']);
     // dev dependencies
-    const npmProcDev = execa('npm', ['i', '-D', ...NPM_PACKAGES_DEV]);
-    npmProcDev.stdout.pipe(process.stdout);
-    await npmProcDev;
+    await cmd('npm', ['i', '-D', ...NPM_PACKAGES_DEV]);
     // prod dependencies
-    const npmProcProd = execa('npm', ['i', ...NPM_PACKAGES_PROD]);
-    npmProcProd.stdout.pipe(process.stdout);
-    await npmProcProd;
+    await cmd('npm', ['i', ...NPM_PACKAGES_PROD]);
 
     // copy config
     Object.keys(CONFIG_FILES).forEach((k) => {
@@ -71,6 +68,11 @@ const run = async ({ packageName }) => {
       const { stdout: email } = await execa('git', ['config', 'user.email']);
       pkg.mod([{ field: 'author', value: { name: userName, email } }]);
     }
+
+    // Initialize git
+    await cmd('git', ['init']);
+    await cmd('git', ['add', '.']);
+    await cmd('git', ['commit', '-m', 'first commit']);
   } catch (error) {
     // console.log(error);
     throw new Error(error);
