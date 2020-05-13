@@ -8,6 +8,8 @@ const CONFIG_FILES = [
   '.github/workflows/push.yml',
   '.github/workflows/publish.yml',
   'LICENSE',
+  '.vscode/launch.json',
+  'codecov.yml',
 ];
 
 export default CONFIG_FILES;
