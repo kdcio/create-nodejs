@@ -22,12 +22,23 @@ const run = async ({ packageName }) => {
     await execa('npm', ['init', '-y']);
     const npmProc = execa('npm', ['i', '-D', ...NPM_PACKAGES]);
     const { stdout: npmInstall } = await npmProc;
+    // eslint-disable-next-line no-console
     console.log('npm install output:', npmInstall);
 
     // copy config
     CONFIG_FILES.forEach((c) => {
       fse.copySync(`${PKG_DIR}/../${c}`, `${CUR_DIR}/${c}`);
     });
+
+    // copy source templates
+    fse.copySync(
+      `${PKG_DIR}/../templates/src/index.js`,
+      `${CUR_DIR}/src/index.js`
+    );
+    fse.copySync(
+      `${PKG_DIR}/../templates/tests/index.test.js`,
+      `${CUR_DIR}/tests/index.test.js`
+    );
 
     pkg.mod([
       { field: 'version', value: '0.1.0' },

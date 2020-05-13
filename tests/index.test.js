@@ -19,7 +19,7 @@ describe('Create NodeJs', () => {
 
   it('should run', async () => {
     jest.setTimeout(60000);
-    expect.assertions(5 + CONFIG_FILES.length + NPM_PACKAGES.length);
+    expect.assertions(7 + CONFIG_FILES.length + NPM_PACKAGES.length);
     try {
       await run({ packageName: 'hello-world' });
       expect(fs.existsSync(PKG_DIR)).toBe(true);
@@ -28,6 +28,10 @@ describe('Create NodeJs', () => {
       CONFIG_FILES.forEach((c) => {
         expect(fs.existsSync(`${PKG_DIR}/${c}`)).toBe(true);
       });
+
+      // template source files
+      expect(fs.existsSync(`${PKG_DIR}/src/index.js`)).toBe(true);
+      expect(fs.existsSync(`${PKG_DIR}/tests/index.test.js`)).toBe(true);
 
       const contents = fs.readFileSync(`${PKG_DIR}/package.json`, 'utf-8');
       const pkg = JSON.parse(contents);
