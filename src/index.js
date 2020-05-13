@@ -1,32 +1,41 @@
 import fs from 'fs';
 import fse from 'fs-extra';
 import { resolve } from 'path';
+import chalk from 'chalk';
 import cmd from './cmd';
 
 import pkg from './pkg';
 import CONFIG_FILES from './configs';
 import { NPM_PACKAGES_DEV, NPM_PACKAGES_PROD } from './packages';
 
+const { log } = console;
+
 const PKG_DIR = __dirname;
 
 const run = async ({ packageName }) => {
   try {
+    log(chalk.green.bold('Creating your package...'));
+    log(chalk`Package Name: {blue ${packageName}}`);
+
     if (fs.existsSync(packageName)) {
       throw new Error('The directory exists.');
     }
 
+    log(chalk.green('Creating directory...'));
     await fse.mkdirp(packageName);
     process.chdir(packageName);
     const CUR_DIR = process.cwd();
 
-    // npm commands
+    log(chalk.green('Initializing npm...'));
     await cmd('npm', ['init', '-y']);
-    // dev dependencies
+
+    log(chalk.green('Installing dev dependencies...'));
     await cmd('npm', ['i', '-D', ...NPM_PACKAGES_DEV]);
-    // prod dependencies
+
+    log(chalk.green('Installing prod dependencies...'));
     await cmd('npm', ['i', ...NPM_PACKAGES_PROD]);
 
-    // copy config
+    log(chalk.green('Copying configuration files...'));
     Object.keys(CONFIG_FILES).forEach((k) => {
       const c = CONFIG_FILES[k];
       fse.copySync(
@@ -35,7 +44,7 @@ const run = async ({ packageName }) => {
       );
     });
 
-    // copy source templates
+    log(chalk.green('Copying source files...'));
     fse.copySync(
       resolve(`${PKG_DIR}/..`, 'templates/src/index.js'),
       `${CUR_DIR}/src/index.js`
@@ -45,6 +54,7 @@ const run = async ({ packageName }) => {
       `${CUR_DIR}/tests/index.test.js`
     );
 
+    log(chalk.green('Updating package.json...'));
     const scripts = {
       'build:commonjs': 'babel src --out-dir lib',
       clean: 'rm -fR lib',
@@ -70,12 +80,11 @@ const run = async ({ packageName }) => {
     const { stdout: email } = await cmd('git', ['config', 'user.email'], false);
     pkg.mod([{ field: 'author', value: { name: userName, email } }]);
 
-    // Initialize git
+    log(chalk.green('Initializing git...'));
     await cmd('git', ['init']);
     await cmd('git', ['add', '.']);
     await cmd('git', ['commit', '-m', 'first commit']);
   } catch (error) {
-    // console.log(error);
     throw new Error(error);
   } finally {
     // go back to root dir
