@@ -39,13 +39,7 @@ const run = async ({ packageName }) => {
       { field: 'author', value: { name: userName, email } },
     ]);
 
-    // pkg.mod({ field: 'main', value: 'lib/index.js' });
-
-    // console.log('hello');
-    // init dir
-    // init git
-    // npm install
-    // copy configs
+    // add sample test
   } catch (error) {
     // console.log(error);
     throw new Error(error);
