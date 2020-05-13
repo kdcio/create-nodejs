@@ -1,6 +1,7 @@
 import fs from 'fs';
 import fse from 'fs-extra';
 import execa from 'execa';
+import { resolve } from 'path';
 
 import pkg from './pkg';
 import CONFIG_FILES from './configs';
@@ -31,16 +32,16 @@ const run = async ({ packageName }) => {
 
     // copy config
     CONFIG_FILES.forEach((c) => {
-      fse.copySync(`${PKG_DIR}/../${c}`, `${CUR_DIR}/${c}`);
+      fse.copySync(resolve(`${PKG_DIR}/..`, c), `${CUR_DIR}/${c}`);
     });
 
     // copy source templates
     fse.copySync(
-      `${PKG_DIR}/../templates/src/index.js`,
+      resolve(`${PKG_DIR}/..`, 'templates/src/index.js'),
       `${CUR_DIR}/src/index.js`
     );
     fse.copySync(
-      `${PKG_DIR}/../templates/tests/index.test.js`,
+      resolve(`${PKG_DIR}/..`, 'templates/tests/index.test.js'),
       `${CUR_DIR}/tests/index.test.js`
     );
 
