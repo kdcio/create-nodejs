@@ -1,0 +1,5 @@
+tests
+coverage
+src
+codecov.yml
+jest.config.js
