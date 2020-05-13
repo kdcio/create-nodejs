@@ -51,8 +51,6 @@ const run = async ({ packageName }) => {
       const { stdout: email } = await execa('git', ['config', 'user.email']);
       pkg.mod([{ field: 'author', value: { name: userName, email } }]);
     }
-
-    // add sample test
   } catch (error) {
     // console.log(error);
     throw new Error(error);
