@@ -16,7 +16,23 @@ describe('Create NodeJs', () => {
   });
 
   it('should run', async () => {
-    await run({ packageName: 'hello-world' });
-    expect(fs.existsSync(PKG_DIR)).toBe(true);
+    expect.assertions(2);
+    try {
+      await run({ packageName: 'hello-world' });
+      expect(fs.existsSync(PKG_DIR)).toBe(true);
+      expect(fs.existsSync(`${PKG_DIR}/package.json`)).toBe(true);
+    } catch (error) {
+      // console.log(error);
+      expect(error).toBe(undefined);
+    }
+  });
+
+  it('should NOT run', async () => {
+    expect.assertions(1);
+    try {
+      await run({ packageName: 'src' });
+    } catch (error) {
+      expect(error.message).toEqual('The directory exists.');
+    }
   });
 });

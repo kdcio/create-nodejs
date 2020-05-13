@@ -26,15 +26,14 @@ import execa from 'execa';
 // const CUR_DIR = process.cwd();
 
 const run = async ({ packageName }) => {
-  try {
-    if (fs.existsSync(packageName)) {
-      throw new Error('The directory exists.');
-    }
+  if (fs.existsSync(packageName)) {
+    throw new Error('The directory exists.');
+  }
 
+  try {
     await fse.mkdirp(packageName);
     process.chdir(packageName);
     await execa('npm', ['init', '-y']);
-
     // console.log('hello');
     // init dir
     // init git
@@ -42,13 +41,12 @@ const run = async ({ packageName }) => {
     // copy configs
     // fs.mkdir('mydir');
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error.message);
-    // exit(1);
+    // console.log(error);
+    throw new Error(error);
+  } finally {
+    // go back to root dir
+    process.chdir('..');
   }
-
-  // go back to root dir
-  process.chdir('..');
 };
 
 export default run;
