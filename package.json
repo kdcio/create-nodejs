@@ -1,5 +1,5 @@
 {
-  "name": "create-nodejs",
+  "name": "@kdcsoftware/create-nodejs",
   "version": "0.1.0",
   "description": "NodeJs boilerplate",
   "main": "lib/index.js",
