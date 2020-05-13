@@ -1,6 +1,7 @@
 import fs from 'fs';
 import fse from 'fs-extra';
 import run from '../src';
+import CONFIG_FILES from '../src/configs';
 
 const PKG_NAME = 'hello-world';
 const ROOT_DIR = process.cwd();
@@ -12,15 +13,19 @@ describe('Create NodeJs', () => {
   });
 
   afterAll(async () => {
-    // await fse.remove(PKG_DIR);
+    await fse.remove(PKG_DIR);
   });
 
   it('should run', async () => {
-    expect.assertions(7);
+    expect.assertions(7 + CONFIG_FILES.length);
     try {
       await run({ packageName: 'hello-world' });
       expect(fs.existsSync(PKG_DIR)).toBe(true);
       expect(fs.existsSync(`${PKG_DIR}/package.json`)).toBe(true);
+
+      CONFIG_FILES.forEach((c) => {
+        expect(fs.existsSync(`${PKG_DIR}/${c}`)).toBe(true);
+      });
 
       const contents = fs.readFileSync(`${PKG_DIR}/package.json`, 'utf-8');
       const pkg = JSON.parse(contents);

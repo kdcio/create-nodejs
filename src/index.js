@@ -3,29 +3,9 @@ import fse from 'fs-extra';
 import execa from 'execa';
 
 import pkg from './pkg';
+import CONFIG_FILES from './configs';
 
-// const NPM_PACKAGES = [
-//   '@babel/core',
-//   '@babel/cli',
-//   '@babel/preset-env',
-//   'eslint',
-//   'prettier',
-//   'babel-eslint',
-//   'eslint-plugin-import',
-//   'eslint-plugin-prettier',
-//   'eslint-config-airbnb-base',
-//   'eslint-config-prettier',
-//   'husky',
-//   'lint-staged',
-//   'pretty-quick',
-//   'jest',
-//   'babel-jest',
-//   '@babel/plugin-transform-runtime',
-//    '@types/jest',
-// ];
-
-// const PKG_DIR = __dirname;
-// const CUR_DIR = process.cwd();
+const PKG_DIR = __dirname;
 
 const run = async ({ packageName }) => {
   if (fs.existsSync(packageName)) {
@@ -35,7 +15,18 @@ const run = async ({ packageName }) => {
   try {
     await fse.mkdirp(packageName);
     process.chdir(packageName);
+    const CUR_DIR = process.cwd();
+
+    // npm commands
     await execa('npm', ['init', '-y']);
+    // await execa('npm', ['i', '-D', ...NPM_PACKAGES]);
+
+    // copy config
+    CONFIG_FILES.forEach((c) => {
+      fse.copySync(`${PKG_DIR}/../${c}`, `${CUR_DIR}/${c}`);
+    });
+
+    // modify package.json
     const { stdout: userName } = await execa('git', ['config', 'user.name']);
     const { stdout: email } = await execa('git', ['config', 'user.email']);
     pkg.mod([
@@ -52,8 +43,6 @@ const run = async ({ packageName }) => {
     // init git
     // npm install
     // copy configs
-    // fs.mkdir('mydir');
-    // get user from git
   } catch (error) {
     // console.log(error);
     throw new Error(error);
