@@ -19,7 +19,7 @@ describe('Create NodeJs', () => {
 
   it('should run', async () => {
     jest.setTimeout(60000);
-    expect.assertions(7 + CONFIG_FILES.length + NPM_PACKAGES.length);
+    expect.assertions(5 + CONFIG_FILES.length + NPM_PACKAGES.length);
     try {
       await run({ packageName: 'hello-world' });
       expect(fs.existsSync(PKG_DIR)).toBe(true);
