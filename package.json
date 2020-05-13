@@ -1,13 +1,12 @@
 {
   "name": "@kdcsoftware/create-nodejs",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "NodeJs boilerplate",
   "main": "lib/index.js",
   "bin": "./cli.js",
   "files": [
     "lib",
-    ".*",
-    "jest.config.js"
+    "templates"
   ],
   "scripts": {
     "build:commonjs": "babel src --out-dir lib",

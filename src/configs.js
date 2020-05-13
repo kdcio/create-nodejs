@@ -4,12 +4,12 @@ const CONFIG_FILES = [
   '.eslintrc',
   '.gitignore',
   '.prettierrc',
+  '.vscode/launch.json',
+  'codecov.yml',
   'jest.config.js',
   '.github/workflows/push.yml',
   '.github/workflows/publish.yml',
   'LICENSE',
-  '.vscode/launch.json',
-  'codecov.yml',
 ];
 
 export default CONFIG_FILES;

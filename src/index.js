@@ -32,7 +32,10 @@ const run = async ({ packageName }) => {
 
     // copy config
     CONFIG_FILES.forEach((c) => {
-      fse.copySync(resolve(`${PKG_DIR}/..`, c), `${CUR_DIR}/${c}`);
+      fse.copySync(
+        resolve(`${PKG_DIR}/..`, `templates/${c}`),
+        `${CUR_DIR}/${c}`
+      );
     });
 
     // copy source templates
