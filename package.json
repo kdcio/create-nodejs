@@ -21,7 +21,11 @@
     "type": "git",
     "url": "git+https://github.com/kdcsoftware/create-boilerplate.git"
   },
-  "keywords": [],
+  "keywords": [
+    "kdc",
+    "nodejs",
+    "boilerplate"
+  ],
   "author": {
     "name": "Ian Dela Cruz",
     "email": "ian@kdcsoftware.com",
