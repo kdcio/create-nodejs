@@ -2,6 +2,8 @@ import fs from 'fs';
 import fse from 'fs-extra';
 import execa from 'execa';
 
+import pkg from './pkg';
+
 // const NPM_PACKAGES = [
 //   '@babel/core',
 //   '@babel/cli',
@@ -34,12 +36,21 @@ const run = async ({ packageName }) => {
     await fse.mkdirp(packageName);
     process.chdir(packageName);
     await execa('npm', ['init', '-y']);
+    pkg.mod([
+      { field: 'version', value: '0.1.0' },
+      { field: 'main', value: 'lib/index.js' },
+      { field: 'license', value: 'MIT' },
+    ]);
+
+    // pkg.mod({ field: 'main', value: 'lib/index.js' });
+
     // console.log('hello');
     // init dir
     // init git
     // npm install
     // copy configs
     // fs.mkdir('mydir');
+    // get user from git
   } catch (error) {
     // console.log(error);
     throw new Error(error);

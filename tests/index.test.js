@@ -12,15 +12,21 @@ describe('Create NodeJs', () => {
   });
 
   afterAll(async () => {
-    await fse.remove(PKG_DIR);
+    // await fse.remove(PKG_DIR);
   });
 
   it('should run', async () => {
-    expect.assertions(2);
+    expect.assertions(5);
     try {
       await run({ packageName: 'hello-world' });
       expect(fs.existsSync(PKG_DIR)).toBe(true);
       expect(fs.existsSync(`${PKG_DIR}/package.json`)).toBe(true);
+
+      const contents = fs.readFileSync(`${PKG_DIR}/package.json`, 'utf-8');
+      const pkg = JSON.parse(contents);
+      expect(pkg.version).toBe('0.1.0');
+      expect(pkg.main).toBe('lib/index.js');
+      expect(pkg.license).toBe('MIT');
     } catch (error) {
       // console.log(error);
       expect(error).toBe(undefined);
