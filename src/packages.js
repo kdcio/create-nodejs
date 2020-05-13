@@ -1,6 +1,7 @@
 const NPM_PACKAGES = [
   '@babel/core',
   '@babel/cli',
+  '@babel/runtime',
   '@babel/preset-env',
   'eslint',
   'prettier',
