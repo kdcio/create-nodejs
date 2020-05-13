@@ -31,9 +31,10 @@ const run = async ({ packageName }) => {
     await npmProcProd;
 
     // copy config
-    CONFIG_FILES.forEach((c) => {
+    Object.keys(CONFIG_FILES).forEach((k) => {
+      const c = CONFIG_FILES[k];
       fse.copySync(
-        resolve(`${PKG_DIR}/..`, `templates/${c}`),
+        resolve(`${PKG_DIR}/..`, `templates/${k}`),
         `${CUR_DIR}/${c}`
       );
     });
