@@ -52,18 +52,18 @@ const run = async ({ packageName, bundle, gitOrigin, verbose }) => {
     log(chalk.green('Copying configuration files...'));
     Object.keys(CONFIG_FILES).forEach((k) => {
       const c = CONFIG_FILES[k];
-      src = resolve(`${PKG_DIR}/..`, `templates/${k}`);
+      src = resolve(`${PKG_DIR}`, `../templates/${k}`);
       dest = `${CUR_DIR}/${c}`;
       if (verbose) log(`Copying ${chalk.yellow(src)} to ${chalk.green(dest)}`);
       fse.copySync(src, dest);
     });
 
     log(chalk.green('Copying source files...'));
-    src = resolve(`${PKG_DIR}/..`, 'templates/src/index.js');
+    src = resolve(`${PKG_DIR}`, '../templates/src/index.js');
     dest = `${CUR_DIR}/src/index.js`;
     if (verbose) log(`Copying ${chalk.yellow(src)} to ${chalk.green(dest)}`);
     fse.copySync(src, dest);
-    src = resolve(`${PKG_DIR}/..`, 'templates/tests/index.test.js');
+    src = resolve(`${PKG_DIR}`, '../templates/tests/index.test.js');
     dest = `${CUR_DIR}/tests/index.test.js`;
     if (verbose) log(`Copying ${chalk.yellow(src)} to ${chalk.green(dest)}`);
     fse.copySync(src, dest);
