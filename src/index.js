@@ -12,7 +12,7 @@ const { log } = console;
 
 const PKG_DIR = __dirname;
 
-const run = async ({ packageName }) => {
+const run = async ({ packageName, bundle }) => {
   try {
     log(chalk.green.bold('Creating your package...'));
     log(chalk`Package Name: {blue ${packageName}}`);
@@ -30,7 +30,9 @@ const run = async ({ packageName }) => {
     await cmd('npm', ['init', '-y']);
 
     log(chalk.green('Installing dev dependencies...'));
-    await cmd('npm', ['i', '-D', ...NPM_PACKAGES_DEV]);
+    const devDeps = [...NPM_PACKAGES_DEV];
+    if (bundle) devDeps.push('parcel@next');
+    await cmd('npm', ['i', '-D', ...devDeps]);
 
     log(chalk.green('Installing prod dependencies...'));
     await cmd('npm', ['i', ...NPM_PACKAGES_PROD]);
@@ -55,6 +57,11 @@ const run = async ({ packageName }) => {
     );
 
     log(chalk.green('Updating package.json...'));
+    const mods = [];
+    mods.push({ field: 'version', value: '0.1.0' });
+    mods.push({ field: 'main', value: 'lib/index.js' });
+    mods.push({ field: 'license', value: 'MIT' });
+
     const scripts = {
       'build:commonjs': 'babel src --out-dir lib',
       clean: 'rm -fR lib',
@@ -65,12 +72,22 @@ const run = async ({ packageName }) => {
       coverage: 'jest --coverage',
     };
 
-    pkg.mod([
-      { field: 'version', value: '0.1.0' },
-      { field: 'main', value: 'lib/index.js' },
-      { field: 'license', value: 'MIT' },
-      { field: 'scripts', value: scripts },
-    ]);
+    if (bundle) {
+      scripts.bundle = 'parcel build src/index.js';
+      scripts.build = 'npm run clean && npm run bundle';
+      mods.push({
+        field: 'targets',
+        value: {
+          main: {
+            engines: {
+              node: '>=10.x',
+            },
+          },
+        },
+      });
+    }
+
+    mods.push({ field: 'scripts', value: scripts });
 
     const { stdout: userName } = await cmd(
       'git',
@@ -78,7 +95,29 @@ const run = async ({ packageName }) => {
       false
     );
     const { stdout: email } = await cmd('git', ['config', 'user.email'], false);
-    pkg.mod([{ field: 'author', value: { name: userName, email } }]);
+    mods.push({ field: 'author', value: { name: userName, email } });
+
+    mods.push({
+      field: 'husky',
+      value: {
+        hooks: {
+          'pre-commit': 'lint-staged',
+        },
+      },
+    });
+
+    mods.push({
+      field: 'lint-staged',
+      value: {
+        '*.js': [
+          'eslint src --ext .js --fix',
+          'pretty-quick --staged',
+          'git add',
+        ],
+      },
+    });
+
+    pkg.mod(mods);
 
     log(chalk.green('Initializing git...'));
     await cmd('git', ['init']);

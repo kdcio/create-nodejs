@@ -16,6 +16,7 @@ program
   .usage(`${chalk.green('<package-name>')}`)
   .arguments('<package-name>')
   .option('--info', 'print environment debug info')
+  .option('--no-bundle', 'do not bundle the build output')
   .action((name) => {
     packageName = name;
   })
@@ -23,7 +24,8 @@ program
 
 const createPackage = async () => {
   try {
-    await run({ packageName });
+    const { bundle } = program;
+    await run({ packageName, bundle });
     log(chalk.green('\n\nYour package is ready!\n\n'));
     log(chalk.blue(`\tcd ${packageName}`));
     log(chalk.blue('\tcode .\n\n'));

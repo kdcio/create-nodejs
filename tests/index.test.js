@@ -9,25 +9,25 @@ const ROOT_DIR = process.cwd();
 const PKG_DIR = `${ROOT_DIR}/${PKG_NAME}`;
 
 describe('Create NodeJs', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await fse.remove(PKG_DIR);
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await fse.remove(PKG_DIR);
   });
 
-  it('should run', async () => {
-    jest.setTimeout(60000);
+  it('should run with bundler', async () => {
+    jest.setTimeout(120000);
     expect.assertions(
-      17 +
+      22 +
         Object.keys(CONFIG_FILES).length +
         NPM_PACKAGES_DEV.length +
         NPM_PACKAGES_PROD.length
     );
 
     try {
-      await run({ packageName: 'hello-world' });
+      await run({ packageName: 'hello-world', bundle: true });
       expect(fs.existsSync(PKG_DIR)).toBe(true);
       expect(fs.existsSync(`${PKG_DIR}/package.json`)).toBe(true);
       expect(fs.existsSync(`${PKG_DIR}/.git`)).toBe(true);
@@ -53,8 +53,70 @@ describe('Create NodeJs', () => {
       expect(pkg.scripts).toHaveProperty('test');
       expect(pkg.scripts).toHaveProperty('watch');
       expect(pkg.scripts).toHaveProperty('coverage');
+      expect(pkg.scripts).toHaveProperty('bundle');
+      expect(pkg.scripts.build).toMatch(/.*bundle$/);
       expect(pkg.author).toHaveProperty('name');
       expect(pkg.author).toHaveProperty('email');
+      expect(pkg).toHaveProperty('husky');
+      expect(pkg).toHaveProperty('lint-staged');
+      expect(pkg).toHaveProperty('targets');
+
+      NPM_PACKAGES_DEV.forEach((c) => {
+        expect(pkg.devDependencies).toHaveProperty(c);
+      });
+
+      NPM_PACKAGES_PROD.forEach((c) => {
+        expect(pkg.dependencies).toHaveProperty(c);
+      });
+    } catch (error) {
+      // console.log(error);
+      expect(error).toBe(null);
+    }
+  });
+
+  it('should run without bundler', async () => {
+    jest.setTimeout(120000);
+    expect.assertions(
+      22 +
+        Object.keys(CONFIG_FILES).length +
+        NPM_PACKAGES_DEV.length +
+        NPM_PACKAGES_PROD.length
+    );
+
+    try {
+      await run({ packageName: 'hello-world', bundle: false });
+      expect(fs.existsSync(PKG_DIR)).toBe(true);
+      expect(fs.existsSync(`${PKG_DIR}/package.json`)).toBe(true);
+      expect(fs.existsSync(`${PKG_DIR}/.git`)).toBe(true);
+
+      Object.keys(CONFIG_FILES).forEach((k) => {
+        const c = CONFIG_FILES[k];
+        expect(fs.existsSync(`${PKG_DIR}/${c}`)).toBe(true);
+      });
+
+      // template source files
+      expect(fs.existsSync(`${PKG_DIR}/src/index.js`)).toBe(true);
+      expect(fs.existsSync(`${PKG_DIR}/tests/index.test.js`)).toBe(true);
+
+      const contents = fs.readFileSync(`${PKG_DIR}/package.json`, 'utf-8');
+      const pkg = JSON.parse(contents);
+      expect(pkg.version).toBe('0.1.0');
+      expect(pkg.main).toBe('lib/index.js');
+      expect(pkg.license).toBe('MIT');
+      expect(pkg.scripts).toHaveProperty('build:commonjs');
+      expect(pkg.scripts).toHaveProperty('clean');
+      expect(pkg.scripts).toHaveProperty('build');
+      expect(pkg.scripts.build).toMatch(/.*commonjs$/);
+      expect(pkg.scripts).toHaveProperty('lint');
+      expect(pkg.scripts).toHaveProperty('test');
+      expect(pkg.scripts).toHaveProperty('watch');
+      expect(pkg.scripts).toHaveProperty('coverage');
+      expect(pkg.scripts).not.toHaveProperty('bundle');
+      expect(pkg.author).toHaveProperty('name');
+      expect(pkg.author).toHaveProperty('email');
+      expect(pkg).toHaveProperty('husky');
+      expect(pkg).toHaveProperty('lint-staged');
+      expect(pkg).not.toHaveProperty('targets');
 
       NPM_PACKAGES_DEV.forEach((c) => {
         expect(pkg.devDependencies).toHaveProperty(c);
