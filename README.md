@@ -24,6 +24,7 @@ Options:
   --no-bundle                    do not bundle the build output
   -g, --git-origin <remote-url>  add git remote url as origin
   -i, --info                     print environment debug info
+  -v, --verbose                  verbose output
   -h, --help                     display help for command
 
 Example:
