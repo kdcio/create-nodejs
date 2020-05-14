@@ -6,7 +6,7 @@
 [![size](https://img.shields.io/bundlephobia/min/@kdcsoftware/create-nodejs?style=for-the-badge)](https://bundlephobia.com/result?p=@kdcsoftware/create-nodejs)
 [![license](https://img.shields.io/github/license/kdcsoftware/create-nodejs?style=for-the-badge)](https://github.com/kdcsoftware/create-nodejs/blob/master/LICENSE)
 
-Start you project easily with the right tools and best practices.
+Start your [NodeJs](https://nodejs.org/) project easily with the right tools and best practices.
 
 ## Usage
 
