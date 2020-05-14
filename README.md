@@ -10,7 +10,7 @@ Start you project easily with the right tools and best practices.
 
 ## Usage
 
-```bash
+```terminal
   _  ______   ____ ____         __ _
  | |/ /  _ \ / ___/ ___|  ___  / _| |___      ____ _ _ __ ___
  | ' /| | | | |   \___ \ / _ \| |_| __\ \ /\ / / _` | '__/ _ \
