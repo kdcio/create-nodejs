@@ -52,3 +52,4 @@ Example:
 - GitHub Actions for merging and publishing
 - Initialize git and add remote url
 - Add info in package.json
+- Debug jest test scripts using VS Code
