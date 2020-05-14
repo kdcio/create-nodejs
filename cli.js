@@ -12,9 +12,9 @@ let packageName;
 
 program
   .version(packageJson.version)
-  .name('npx @kdcsoftware/create-nodejs')
-  .usage(`${chalk.green('<package-name>')}`)
-  .arguments('<package-name>')
+  .name(`npx ${packageJson.name}`)
+  .usage(`${chalk.green('package-name')}`)
+  .arguments('[package-name]')
   .option('--info', 'print environment debug info')
   .option('--no-bundle', 'do not bundle the build output')
   .action((name) => {
@@ -45,7 +45,7 @@ if (program.info) {
         System: ['OS', 'CPU'],
         Binaries: ['Node', 'npm', 'Yarn'],
         Browsers: ['Chrome', 'Edge', 'Internet Explorer', 'Firefox', 'Safari'],
-        npmGlobalPackages: ['@kdcsoftware/create-nodejs'],
+        npmGlobalPackages: [`${packageJson.name}`],
       },
       {
         duplicates: true,
@@ -54,8 +54,9 @@ if (program.info) {
     )
     .then(log);
 } else if (typeof packageName === 'undefined') {
-  console.error('Please specify the project directory:');
-  log(`  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`);
+  // eslint-disable-next-line no-console
+  console.error('Please specify the project name:');
+  log(`  ${chalk.cyan(program.name())} ${chalk.green('project-directory')}`);
   log();
   log('For example:');
   log(`  ${chalk.cyan(program.name())} ${chalk.green('my-awesome-package')}`);
