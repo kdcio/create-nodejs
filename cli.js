@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const chalk = require('chalk');
+const figlet = require('figlet');
 const envinfo = require('envinfo');
 const { program } = require('commander');
 const run = require('./lib/index').default;
@@ -10,16 +11,29 @@ const { log } = console;
 
 let packageName;
 
+log(
+  figlet.textSync('KDCSoftware', {
+    font: 'Standard',
+    horizontalLayout: 'default',
+    verticalLayout: 'default',
+  })
+);
+
 program
   .version(packageJson.version)
   .name(`npx ${packageJson.name}`)
   .usage(`${chalk.green('package-name')}`)
   .arguments('[package-name]')
   .option('--no-bundle', 'do not bundle the build output')
-  .option('--git-origin <remote-url>', 'add git remote url as origin')
-  .option('--info', 'print environment debug info')
+  .option('-g, --git-origin <remote-url>', 'add git remote url as origin')
+  .option('-i, --info', 'print environment debug info')
   .action((name) => {
     packageName = name;
+  })
+  .on('--help', () => {
+    log('');
+    log('Example:');
+    log(`  ${chalk.cyan(program.name())} ${chalk.green('my-awesome-package')}`);
   })
   .parse(process.argv);
 
