@@ -1,6 +1,5 @@
 node_modules/
 coverage/
 lib/
-hello-world
 .serverless
-.webpack
+.parcel-cache
