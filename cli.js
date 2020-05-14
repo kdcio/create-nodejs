@@ -27,6 +27,7 @@ program
   .option('--no-bundle', 'do not bundle the build output')
   .option('-g, --git-origin <remote-url>', 'add git remote url as origin')
   .option('-i, --info', 'print environment debug info')
+  .option('-v, --verbose', 'verbose output')
   .action((name) => {
     packageName = name;
   })
@@ -39,8 +40,8 @@ program
 
 const createPackage = async () => {
   try {
-    const { bundle, gitOrigin } = program;
-    await run({ packageName, bundle, gitOrigin });
+    const { bundle, gitOrigin, verbose } = program;
+    await run({ packageName, bundle, gitOrigin, verbose });
     log(chalk.green('\n\nYour package is ready!\n\n'));
     log(chalk.blue(`\tcd ${packageName}`));
     log(chalk.blue('\tcode .\n\n'));

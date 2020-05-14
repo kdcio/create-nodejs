@@ -12,10 +12,15 @@ const { log } = console;
 
 const PKG_DIR = __dirname;
 
-const run = async ({ packageName, bundle, gitOrigin }) => {
+const run = async ({ packageName, bundle, gitOrigin, verbose }) => {
   try {
     log(chalk.green.bold('Creating your package...'));
     log(chalk`Package Name: {blue ${packageName}}`);
+
+    if (verbose) {
+      log(chalk`Source: {blue ${PKG_DIR}}`);
+      log(chalk`Destination: {blue ${process.cwd()}/${packageName}}`);
+    }
 
     if (fs.existsSync(packageName)) {
       throw new Error('The directory exists.');
@@ -26,35 +31,42 @@ const run = async ({ packageName, bundle, gitOrigin }) => {
     process.chdir(packageName);
     const CUR_DIR = process.cwd();
 
+    log(chalk.green('Initializing git...'));
+    await cmd('git', ['init']);
+
     log(chalk.green('Initializing npm...'));
     await cmd('npm', ['init', '-y']);
 
     log(chalk.green('Installing dev dependencies...'));
     const devDeps = [...NPM_PACKAGES_DEV];
     if (bundle) devDeps.push('parcel@next');
+    if (verbose) log(chalk.gray(devDeps));
     await cmd('npm', ['i', '-D', ...devDeps]);
 
     log(chalk.green('Installing prod dependencies...'));
+    if (verbose) log(chalk.gray(NPM_PACKAGES_PROD));
     await cmd('npm', ['i', ...NPM_PACKAGES_PROD]);
 
+    let src;
+    let dest;
     log(chalk.green('Copying configuration files...'));
     Object.keys(CONFIG_FILES).forEach((k) => {
       const c = CONFIG_FILES[k];
-      fse.copySync(
-        resolve(`${PKG_DIR}/..`, `templates/${k}`),
-        `${CUR_DIR}/${c}`
-      );
+      src = resolve(`${PKG_DIR}/..`, `templates/${k}`);
+      dest = `${CUR_DIR}/${c}`;
+      if (verbose) log(`Copying ${chalk.yellow(src)} to ${chalk.green(dest)}`);
+      fse.copySync(src, dest);
     });
 
     log(chalk.green('Copying source files...'));
-    fse.copySync(
-      resolve(`${PKG_DIR}/..`, 'templates/src/index.js'),
-      `${CUR_DIR}/src/index.js`
-    );
-    fse.copySync(
-      resolve(`${PKG_DIR}/..`, 'templates/tests/index.test.js'),
-      `${CUR_DIR}/tests/index.test.js`
-    );
+    src = resolve(`${PKG_DIR}/..`, 'templates/src/index.js');
+    dest = `${CUR_DIR}/src/index.js`;
+    if (verbose) log(`Copying ${chalk.yellow(src)} to ${chalk.green(dest)}`);
+    fse.copySync(src, dest);
+    src = resolve(`${PKG_DIR}/..`, 'templates/tests/index.test.js');
+    dest = `${CUR_DIR}/tests/index.test.js`;
+    if (verbose) log(`Copying ${chalk.yellow(src)} to ${chalk.green(dest)}`);
+    fse.copySync(src, dest);
 
     log(chalk.green('Updating package.json...'));
     const mods = [];
@@ -73,6 +85,7 @@ const run = async ({ packageName, bundle, gitOrigin }) => {
     };
 
     if (bundle) {
+      if (verbose) log(chalk.gray(`Including bundler configs`));
       scripts.bundle = 'parcel build src/index.js';
       scripts.build = 'npm run clean && npm run bundle';
       mods.push({
@@ -119,14 +132,13 @@ const run = async ({ packageName, bundle, gitOrigin }) => {
 
     pkg.mod(mods);
 
-    log(chalk.green('Initializing git...'));
-    await cmd('git', ['init']);
+    log(chalk.green('Adding files to git...'));
     await cmd('git', ['add', '.']);
     await cmd('git', ['commit', '-m', 'first commit']);
 
     if (gitOrigin) {
+      if (verbose) log(chalk.gray(`Adding git remote`));
       await cmd('git', ['remote', 'add', 'origin', gitOrigin]);
-      await cmd('git', ['push', '-u', 'origin', 'master']);
     }
   } catch (error) {
     throw new Error(error);

@@ -1,6 +1,6 @@
 {
   "name": "@kdcsoftware/create-nodejs",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "NodeJs boilerplate",
   "main": "lib/index.js",
   "bin": "./cli.js",
