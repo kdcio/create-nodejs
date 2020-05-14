@@ -11,24 +11,43 @@ Start you project easily with the right tools and best practices.
 ## Usage
 
 ```bash
-npx @kdcsoftware/create-nodejs package-name
+  _  ______   ____ ____         __ _
+ | |/ /  _ \ / ___/ ___|  ___  / _| |___      ____ _ _ __ ___
+ | ' /| | | | |   \___ \ / _ \| |_| __\ \ /\ / / _` | '__/ _ \
+ | . \| |_| | |___ ___) | (_) |  _| |_ \ V  V / (_| | | |  __/
+ |_|\_\____/ \____|____/ \___/|_|  \__| \_/\_/ \__,_|_|  \___|
+
+Usage: npx @kdcsoftware/create-nodejs package-name
+
+Options:
+  -V, --version                  output the version number
+  --no-bundle                    do not bundle the build output
+  -g, --git-origin <remote-url>  add git remote url as origin
+  -i, --info                     print environment debug info
+  -h, --help                     display help for command
+
+Example:
+  npx @kdcsoftware/create-nodejs my-awesome-package
+
 ```
 
 ## What's included
 
 ### Packages Installed
 
-- babel
-- eslint
-- prettier
-- jest
-- husky
-- lint-staged
+- [babel](https://babeljs.io/)
+- [eslint](https://eslint.org/)
+- [prettier](https://prettier.io/)
+- [jest](https://jestjs.io/)
+- [husky](https://github.com/typicode/husky)
+- [lint-staged](https://github.com/okonet/lint-staged)
+- [parcel](https://parceljs.org/)
 
 ### Scripts
 
 - Build script
+- Bundler script
 - Sample test script
 - GitHub Actions for merging and publishing
-- Initialize git
+- Initialize git and add remote url
 - Add info in package.json
