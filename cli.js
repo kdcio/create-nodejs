@@ -15,8 +15,9 @@ program
   .name(`npx ${packageJson.name}`)
   .usage(`${chalk.green('package-name')}`)
   .arguments('[package-name]')
-  .option('--info', 'print environment debug info')
   .option('--no-bundle', 'do not bundle the build output')
+  .option('--git-origin <remote-url>', 'add git remote url as origin')
+  .option('--info', 'print environment debug info')
   .action((name) => {
     packageName = name;
   })
@@ -24,8 +25,8 @@ program
 
 const createPackage = async () => {
   try {
-    const { bundle } = program;
-    await run({ packageName, bundle });
+    const { bundle, gitOrigin } = program;
+    await run({ packageName, bundle, gitOrigin });
     log(chalk.green('\n\nYour package is ready!\n\n'));
     log(chalk.blue(`\tcd ${packageName}`));
     log(chalk.blue('\tcode .\n\n'));

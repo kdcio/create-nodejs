@@ -12,7 +12,7 @@ const { log } = console;
 
 const PKG_DIR = __dirname;
 
-const run = async ({ packageName, bundle }) => {
+const run = async ({ packageName, bundle, gitOrigin }) => {
   try {
     log(chalk.green.bold('Creating your package...'));
     log(chalk`Package Name: {blue ${packageName}}`);
@@ -123,6 +123,11 @@ const run = async ({ packageName, bundle }) => {
     await cmd('git', ['init']);
     await cmd('git', ['add', '.']);
     await cmd('git', ['commit', '-m', 'first commit']);
+
+    if (gitOrigin) {
+      await cmd('git', ['remote', 'add', 'origin', gitOrigin]);
+      await cmd('git', ['push', '-u', 'origin', 'master']);
+    }
   } catch (error) {
     throw new Error(error);
   } finally {
