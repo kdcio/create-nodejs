@@ -10,8 +10,9 @@
   ],
   "scripts": {
     "build:commonjs": "babel src --out-dir lib",
+    "bundle": "parcel build src/index.js",
     "clean": "rm -fR lib",
-    "build": "npm run clean && npm run build:commonjs",
+    "build": "npm run clean && npm run bundle",
     "lint": "eslint src --ext .js",
     "test": "jest",
     "watch": "jest --watchAll --runInBand",
@@ -60,6 +61,7 @@
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "lint-staged": "^10.2.2",
+    "parcel": "^2.0.0-alpha.3.2",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1"
   },
@@ -74,5 +76,12 @@
       "pretty-quick --staged",
       "git add"
     ]
+  },
+  "targets": {
+    "main": {
+      "engines": {
+        "node": ">=10.x"
+      }
+    }
   }
 }

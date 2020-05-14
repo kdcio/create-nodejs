@@ -3,4 +3,4 @@ coverage/
 lib/
 hello-world
 .serverless
-.webpack
+.parcel-cache
