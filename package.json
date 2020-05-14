@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kdcsoftware/create-boilerplate.git"
+    "url": "git+https://github.com/kdcsoftware/create-nodejs.git"
   },
   "keywords": [
     "kdc",
@@ -34,9 +34,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kdcsoftware/create-boilerplate/issues"
+    "url": "https://github.com/kdcsoftware/create-nodejs/issues"
   },
-  "homepage": "https://github.com/kdcsoftware/create-boilerplate#readme",
+  "homepage": "https://github.com/kdcsoftware/create-nodejs#readme",
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "chalk": "^4.0.0",
