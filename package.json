@@ -12,7 +12,7 @@
     "build:commonjs": "babel src --out-dir lib",
     "bundle": "parcel build src/index.js",
     "clean": "rm -fR lib",
-    "build": "npm run clean && npm run bundle",
+    "build": "npm run clean && npm run build:commonjs",
     "lint": "eslint src --ext .js",
     "test": "jest",
     "watch": "jest --watchAll --runInBand",
