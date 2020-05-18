@@ -18,6 +18,8 @@ log(
     verticalLayout: 'default',
   })
 );
+log(`Running version: ${chalk.green(packageJson.version)}`);
+log(); // blank line
 
 program
   .version(packageJson.version)
