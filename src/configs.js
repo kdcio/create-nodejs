@@ -10,6 +10,7 @@ const CONFIG_FILES = {
   'github/workflows/push.yml': '.github/workflows/push.yml',
   'github/workflows/publish.yml': '.github/workflows/publish.yml',
   LICENSE: 'LICENSE',
+  'README.md': 'README.md',
 };
 
 export default CONFIG_FILES;
