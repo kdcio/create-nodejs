@@ -140,6 +140,9 @@ const run = async ({ packageName, bundle, gitOrigin, verbose }) => {
       if (verbose) log(chalk.gray(`Adding git remote`));
       await cmd('git', ['remote', 'add', 'origin', gitOrigin]);
     }
+
+    // this will ensure husky is installed
+    await cmd('npm', ['rebuild']);
   } catch (error) {
     throw new Error(error);
   } finally {
