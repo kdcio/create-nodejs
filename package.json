@@ -1,6 +1,6 @@
 {
   "name": "@kdcio/create-nodejs",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "NodeJs boilerplate",
   "main": "lib/index.js",
   "bin": "./cli.js",
