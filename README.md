@@ -1,12 +1,12 @@
 # Create NodeJs
 
+Start your [NodeJs](https://nodejs.org/) project easily with the right tools and best practices.
+
 [![ver](https://img.shields.io/npm/v/@kdcio/create-nodejs?style=for-the-badge)](https://www.npmjs.com/package/@kdcio/create-nodejs)
 [![build](https://img.shields.io/github/workflow/status/kdcio/create-nodejs/build?style=for-the-badge)](https://github.com/kdcio/create-nodejs/actions?query=workflow%3Abuild)
 [![codecov](https://img.shields.io/codecov/c/github/kdcio/create-nodejs?style=for-the-badge)](https://codecov.io/gh/kdcio/create-nodejs)
 [![size](https://img.shields.io/bundlephobia/min/@kdcio/create-nodejs?style=for-the-badge)](https://bundlephobia.com/result?p=@kdcio/create-nodejs)
 [![license](https://img.shields.io/github/license/kdcio/create-nodejs?style=for-the-badge)](https://github.com/kdcio/create-nodejs/blob/master/LICENSE)
-
-Start your [NodeJs](https://nodejs.org/) project easily with the right tools and best practices.
 
 ## Usage
 
