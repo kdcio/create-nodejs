@@ -1,7 +1,7 @@
 # Your New Project
 
 <!-- Sample badge -->
-<!-- [![license](https://img.shields.io/github/license/kdcsoftware/create-nodejs?style=for-the-badge)](https://github.com/kdcsoftware/create-nodejs/blob/master/LICENSE) -->
+<!-- [![license](https://img.shields.io/github/license/kdcio/create-nodejs?style=for-the-badge)](https://github.com/kdcio/create-nodejs/blob/master/LICENSE) -->
 
 Describe your project here
 

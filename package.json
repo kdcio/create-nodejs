@@ -1,5 +1,5 @@
 {
-  "name": "@kdcsoftware/create-nodejs",
+  "name": "@kdcio/create-nodejs",
   "version": "0.4.2",
   "description": "NodeJs boilerplate",
   "main": "lib/index.js",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kdcsoftware/create-nodejs.git"
+    "url": "git+https://github.com/kdcio/create-nodejs.git"
   },
   "keywords": [
     "kdc",
@@ -34,9 +34,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kdcsoftware/create-nodejs/issues"
+    "url": "https://github.com/kdcio/create-nodejs/issues"
   },
-  "homepage": "https://github.com/kdcsoftware/create-nodejs#readme",
+  "homepage": "https://github.com/kdcio/create-nodejs#readme",
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "chalk": "^4.0.0",

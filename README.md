@@ -1,10 +1,10 @@
 # Create NodeJs
 
-[![ver](https://img.shields.io/npm/v/@kdcsoftware/create-nodejs?style=for-the-badge)](https://www.npmjs.com/package/@kdcsoftware/create-nodejs)
-[![build](https://img.shields.io/github/workflow/status/kdcsoftware/create-nodejs/build?style=for-the-badge)](https://github.com/kdcsoftware/create-nodejs/actions?query=workflow%3Abuild)
-[![codecov](https://img.shields.io/codecov/c/github/kdcsoftware/create-nodejs?style=for-the-badge)](https://codecov.io/gh/kdcsoftware/create-nodejs)
-[![size](https://img.shields.io/bundlephobia/min/@kdcsoftware/create-nodejs?style=for-the-badge)](https://bundlephobia.com/result?p=@kdcsoftware/create-nodejs)
-[![license](https://img.shields.io/github/license/kdcsoftware/create-nodejs?style=for-the-badge)](https://github.com/kdcsoftware/create-nodejs/blob/master/LICENSE)
+[![ver](https://img.shields.io/npm/v/@kdcio/create-nodejs?style=for-the-badge)](https://www.npmjs.com/package/@kdcio/create-nodejs)
+[![build](https://img.shields.io/github/workflow/status/kdcio/create-nodejs/build?style=for-the-badge)](https://github.com/kdcio/create-nodejs/actions?query=workflow%3Abuild)
+[![codecov](https://img.shields.io/codecov/c/github/kdcio/create-nodejs?style=for-the-badge)](https://codecov.io/gh/kdcio/create-nodejs)
+[![size](https://img.shields.io/bundlephobia/min/@kdcio/create-nodejs?style=for-the-badge)](https://bundlephobia.com/result?p=@kdcio/create-nodejs)
+[![license](https://img.shields.io/github/license/kdcio/create-nodejs?style=for-the-badge)](https://github.com/kdcio/create-nodejs/blob/master/LICENSE)
 
 Start your [NodeJs](https://nodejs.org/) project easily with the right tools and best practices.
 
@@ -17,7 +17,7 @@ Start your [NodeJs](https://nodejs.org/) project easily with the right tools and
  | . \| |_| | |___ ___) | (_) |  _| |_ \ V  V / (_| | | |  __/
  |_|\_\____/ \____|____/ \___/|_|  \__| \_/\_/ \__,_|_|  \___|
 
-Usage: npx @kdcsoftware/create-nodejs package-name
+Usage: npx @kdcio/create-nodejs package-name
 
 Options:
   -V, --version                  output the version number
@@ -28,7 +28,7 @@ Options:
   -h, --help                     display help for command
 
 Example:
-  npx @kdcsoftware/create-nodejs my-awesome-package
+  npx @kdcio/create-nodejs my-awesome-package
 
 ```
 

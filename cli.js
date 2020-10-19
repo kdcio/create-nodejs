@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const figlet = require('figlet');
 const envinfo = require('envinfo');
 const { program } = require('commander');
+// eslint-disable-next-line import/no-unresolved
 const run = require('./lib/index').default;
 const packageJson = require('./package.json');
 
@@ -12,7 +13,7 @@ const { log } = console;
 let packageName;
 
 log(
-  figlet.textSync('KDCSoftware', {
+  figlet.textSync('KDCio', {
     font: 'Standard',
     horizontalLayout: 'default',
     verticalLayout: 'default',
