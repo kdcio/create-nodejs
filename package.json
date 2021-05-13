@@ -39,7 +39,7 @@
   "homepage": "https://github.com/kdcio/create-nodejs#readme",
   "dependencies": {
     "@babel/runtime": "^7.13.16",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "commander": "^5.1.0",
     "envinfo": "^7.8.1",
     "execa": "^4.1.0",
